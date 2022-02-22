@@ -1,18 +1,21 @@
-import { GoogleSigninButton } from '@react-native-google-signin/google-signin'
+import { Box, Button } from 'native-base'
 import React from 'react'
-import { Text, View } from 'react-native'
 
 const SignIn = ({ signInWithGoogle, isValidating }) => {
   return (
-    <View>
-      <Text>SignIn</Text>
-      <GoogleSigninButton
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Dark}
+    <Box
+      flex={1}
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Button
         onPress={signInWithGoogle}
-        disabled={isValidating}
-      />
-    </View>
+        isLoading={isValidating}
+        isLoadingText="Signing in"
+      >
+        Sign in using Google
+      </Button>
+    </Box>
   )
 }
 
