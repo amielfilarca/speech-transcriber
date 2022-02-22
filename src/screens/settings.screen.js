@@ -1,10 +1,15 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Button, Text, View } from 'react-native'
 
-const Settings = () => {
+const Settings = ({ signOut, isValidating }) => {
   return (
     <View>
       <Text>Settings</Text>
+      <Button
+        title="Sign Out"
+        onPress={signOut}
+        disabled={isValidating}
+      />
     </View>
   )
 }
