@@ -1223,6 +1223,11 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
 
+"@react-native-firebase/app-distribution@^14.5.0":
+  version "14.5.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/app-distribution/-/app-distribution-14.5.0.tgz#6333cfb6d09cbe6851aa93b81c74cffccd07e286"
+  integrity sha512-4Gh16OBAzIkj5Cj8dhoy5GPR2Y4LlTTYdGvEvkOzn6o40hq6avHq4lnbtFJZ5bExxEQtJdmv+JYU/B4N7z6y2w==
+
 "@react-native-firebase/app@^14.5.0":
   version "14.5.0"
   resolved "https://registry.yarnpkg.com/@react-native-firebase/app/-/app-14.5.0.tgz#677a3965d172d3bde12690bcc993176943f3a99d"
