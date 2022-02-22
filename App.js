@@ -1,13 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native'
+import { NativeBaseProvider } from 'native-base'
 import React from 'react'
 
 import AppNavigator from './src/navigators/app.navigator'
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <AppNavigator />
-    </NavigationContainer>
+    <NativeBaseProvider>
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
+    </NativeBaseProvider>
   )
 }
 

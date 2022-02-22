@@ -1,16 +1,21 @@
+import { Box, Button } from 'native-base'
 import React from 'react'
-import { Button, Text, View } from 'react-native'
 
 const Settings = ({ signOut, isValidating }) => {
   return (
-    <View>
-      <Text>Settings</Text>
+    <Box
+      flex={1}
+      alignItems="center"
+      justifyContent="center"
+    >
       <Button
-        title="Sign Out"
         onPress={signOut}
-        disabled={isValidating}
-      />
-    </View>
+        isLoading={isValidating}
+        isLoadingText="Signing out"
+      >
+        Sign out
+      </Button>
+    </Box>
   )
 }
 
