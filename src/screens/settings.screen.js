@@ -1,13 +1,15 @@
 import React from 'react'
 import { Button, Text, View } from 'react-native'
 
-import { signOut } from '../actions/auth.action'
-
-const Settings = () => {
+const Settings = ({ signOut, isValidating }) => {
   return (
     <View>
       <Text>Settings</Text>
-      <Button title="Sign Out" onPress={signOut} />
+      <Button
+        title="Sign Out"
+        onPress={signOut}
+        disabled={isValidating}
+      />
     </View>
   )
 }

@@ -2,25 +2,28 @@ import auth from '@react-native-firebase/auth'
 import { useNavigation } from '@react-navigation/core'
 import React, {
   useCallback,
+  useContext,
   useEffect,
   useState,
 } from 'react'
 
+import { useSignInWithGoogle } from '../actions/auth.action'
+import { AuthContext } from '../contexts/auth.context'
 import SignInScreen from '../screens/sign-in.screen'
 
 const Authentication = () => {
   const navigation = useNavigation()
-
+  const { signInWithGoogle, isValidating } =
+    useSignInWithGoogle()
+  const { user, setUser } = useContext(AuthContext)
   const [initializing, setInitializing] = useState(true)
 
   const onAuthStateChanged = useCallback(
     (user) => {
-      user
-        ? navigation.navigate('App')
-        : navigation.navigate('Auth')
+      setUser(user)
       if (initializing) setInitializing(false)
     },
-    [navigation, initializing]
+    [setUser, initializing]
   )
 
   useEffect(() => {
@@ -30,9 +33,20 @@ const Authentication = () => {
     return subscriber
   }, [onAuthStateChanged])
 
+  useEffect(() => {
+    user
+      ? navigation.navigate('App')
+      : navigation.navigate('Auth')
+  }, [navigation, user])
+
   if (initializing) return null
 
-  return <SignInScreen />
+  return (
+    <SignInScreen
+      signInWithGoogle={signInWithGoogle}
+      isValidating={isValidating}
+    />
+  )
 }
 
 export default Authentication
