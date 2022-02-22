@@ -6,7 +6,6 @@ on:
       - app-distribution
 jobs:
   deploy:
-    needs: install-and-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
