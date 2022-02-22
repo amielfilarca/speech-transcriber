@@ -1,10 +1,13 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Button, Text, View } from 'react-native'
+
+import { signOut } from '../actions/auth.action'
 
 const Settings = () => {
   return (
     <View>
       <Text>Settings</Text>
+      <Button title="Sign Out" onPress={signOut} />
     </View>
   )
 }
