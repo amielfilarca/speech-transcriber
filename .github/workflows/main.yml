@@ -2,7 +2,7 @@ name: Build APK & Upload to Firebase App Distribution
 on:
   push:
     branches:
-      - master
+      - main
       - app-distribution
 jobs:
   install-and-test:
@@ -12,7 +12,7 @@ jobs:
       - name: Install npm dependencies
         run: |
           yarn
-  build-android:
+  build-and-upload-apk:
     needs: install-and-test
     runs-on: ubuntu-latest
     steps:
@@ -23,12 +23,8 @@ jobs:
       - name: Build Android Release
         run: |
           cd android && ./gradlew assembleRelease
-  upload-apk:
-    needs: build-android
-    runs-on: ubuntu-latest
-    steps:
       - uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
-          file: android/app/build/outputs/apk/release/app-release.apk
+          file: app/build/outputs/apk/release/app-release.apk
