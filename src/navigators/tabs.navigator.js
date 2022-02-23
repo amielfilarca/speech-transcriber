@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
 
 import Settings from '../containers/settings'
-import TranscribeScreen from '../screens/transcribe.screen'
+import Transcribe from '../containers/transcribe'
 import TranscriptsScreen from '../screens/transcripts.screen'
 
 const Tabs = createBottomTabNavigator()
@@ -12,7 +12,7 @@ const TabsNavigator = () => {
     <Tabs.Navigator>
       <Tabs.Screen
         name="Transcribe"
-        component={TranscribeScreen}
+        component={Transcribe}
       />
       <Tabs.Screen
         name="Transcripts"
