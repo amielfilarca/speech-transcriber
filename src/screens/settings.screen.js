@@ -15,28 +15,30 @@ const Settings = ({ signOut, isValidating, user }) => {
       bg="orange.50"
       justifyContent="space-between"
     >
-      <VStack space={4}>
-        <Center>
-          <Center
-            borderRadius={'full'}
-            bgColor="orange.100"
-          >
-            <Avatar
-              source={{ uri: user?.photoURL }}
-              size={'lg'}
-              m={8}
-            />
+      <Center flex={1}>
+        <VStack space={4}>
+          <Center>
+            <Center
+              borderRadius={'full'}
+              bgColor="orange.100"
+            >
+              <Avatar
+                source={{ uri: user?.photoURL }}
+                size={'lg'}
+                m={8}
+              />
+            </Center>
           </Center>
-        </Center>
-        <Center>
-          <Text fontSize={'2xl'} fontWeight={900}>
-            {user?.displayName}
-          </Text>
-          <Text color={'gray.500'} fontWeight={500}>
-            {user?.email}
-          </Text>
-        </Center>
-      </VStack>
+          <Center>
+            <Text fontSize={'2xl'} fontWeight={900}>
+              {user?.displayName}
+            </Text>
+            <Text color={'gray.500'} fontWeight={500}>
+              {user?.email}
+            </Text>
+          </Center>
+        </VStack>
+      </Center>
       <Button
         onPress={signOut}
         isDisabled={isValidating}
