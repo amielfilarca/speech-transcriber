@@ -5,7 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "watchman watch-del '/Users/amiel/speech-transcriber' ; watchman watch-project '/Users/amiel/speech-transcriber' && react-native start",
+    "start": "react-native start",
     "test": "jest",
     "lint": "eslint *.js",
     "lint:fix": "eslint --fix *.js",

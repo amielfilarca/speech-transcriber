@@ -9,7 +9,7 @@ const Tabs = createBottomTabNavigator()
 
 const TabsNavigator = () => {
   return (
-    <Tabs.Navigator>
+    <Tabs.Navigator screenOptions={{ headerShown: false }}>
       <Tabs.Screen
         name="Transcribe"
         component={Transcribe}
