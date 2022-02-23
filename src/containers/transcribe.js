@@ -1,14 +1,17 @@
 import Voice from '@react-native-voice/voice'
 import React, {
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useState,
 } from 'react'
 
+import { AuthContext } from '../contexts/auth.context'
 import TranscribeScreen from '../screens/transcribe.screen'
 
 const Transcribe = () => {
+  const { user } = useContext(AuthContext)
   const [isLoading, setIsLoading] = useState(false)
   const [isListening, setIsListening] = useState(false)
   const [error, setError] = useState(null)
@@ -18,6 +21,7 @@ const Transcribe = () => {
 
   const onSpeechStart = (event) => {
     console.log('onSpeechStart:', event)
+    setError(null)
     setIsListening(true)
   }
 
@@ -28,6 +32,7 @@ const Transcribe = () => {
   const onSpeechError = (event) => {
     console.log('onSpeechError:', event)
     setError(event.error.message.split('/')[1])
+    setIsListening(false)
   }
 
   const onSpeechEnd = (event) => {
@@ -98,6 +103,7 @@ const Transcribe = () => {
 
   return (
     <TranscribeScreen
+      user={user}
       onPress={onPress}
       isLoading={isLoading}
       buttonText={buttonText}

@@ -6,11 +6,10 @@ import {
   Text,
   VStack,
 } from 'native-base'
-import React, { useContext } from 'react'
-
-import { AuthContext } from '../contexts/auth.context'
+import React from 'react'
 
 const Transcribe = ({
+  user,
   onPress,
   isLoading,
   buttonText,
@@ -19,8 +18,6 @@ const Transcribe = ({
   partialResults,
   volume,
 }) => {
-  const { user } = useContext(AuthContext)
-
   return (
     <VStack flex={1} p={5} space={4} bg="orange.50">
       <Box>
@@ -73,9 +70,10 @@ const Transcribe = ({
         </Box>
       </VStack>
       <Button
-        _text={{ fontSize: 'md', fontWeight: 900 }}
         onPress={onPress}
         isDisabled={isLoading}
+        _text={{ fontSize: 'md', fontWeight: 900 }}
+        shadow={'1'}
       >
         {buttonText}
       </Button>
