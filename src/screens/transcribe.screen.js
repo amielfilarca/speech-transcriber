@@ -17,6 +17,8 @@ const Transcribe = ({
   results,
   partialResults,
   volume,
+  saveTranscript,
+  discardTranscript,
 }) => {
   return (
     <VStack flex={1} p={5} space={4} bg="orange.50">
@@ -69,14 +71,36 @@ const Transcribe = ({
           </Text>
         </Box>
       </VStack>
-      <Button
-        onPress={onPress}
-        isDisabled={isLoading}
-        _text={{ fontSize: 'md', fontWeight: 900 }}
-        shadow={'1'}
-      >
-        {buttonText}
-      </Button>
+      {!results && (
+        <Button
+          onPress={onPress}
+          isDisabled={isLoading}
+          _text={{ fontSize: 'md', fontWeight: 900 }}
+          shadow={'1'}
+        >
+          {buttonText}
+        </Button>
+      )}
+      {results && (
+        <VStack space={4}>
+          <Button
+            onPress={saveTranscript}
+            colorScheme="success"
+            _text={{ fontSize: 'md', fontWeight: 900 }}
+            shadow={1}
+          >
+            Save
+          </Button>
+          <Button
+            onPress={discardTranscript}
+            colorScheme="danger"
+            _text={{ fontSize: 'md', fontWeight: 900 }}
+            shadow={1}
+          >
+            Discard
+          </Button>
+        </VStack>
+      )}
     </VStack>
   )
 }

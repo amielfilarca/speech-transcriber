@@ -8,10 +8,12 @@ import React, {
 } from 'react'
 
 import { AuthContext } from '../contexts/auth.context'
+import { TranscriptContext } from '../contexts/transcript.context'
 import TranscribeScreen from '../screens/transcribe.screen'
 
 const Transcribe = () => {
   const { user } = useContext(AuthContext)
+  const { addTranscript } = useContext(TranscriptContext)
   const [isLoading, setIsLoading] = useState(false)
   const [isListening, setIsListening] = useState(false)
   const [error, setError] = useState(null)
@@ -19,40 +21,32 @@ const Transcribe = () => {
   const [partialResults, setPartialResults] = useState([])
   const [volume, setVolume] = useState(null)
 
-  const onSpeechStart = (event) => {
-    console.log('onSpeechStart:', event)
+  const onSpeechStart = () => {
     setError(null)
     setIsListening(true)
   }
 
-  const onSpeechRecognized = (event) => {
-    console.log('onSpeechRecognized:', event)
-  }
+  const onSpeechRecognized = () => {}
 
   const onSpeechError = (event) => {
-    console.log('onSpeechError:', event)
     setError(event.error.message.split('/')[1])
     setIsListening(false)
   }
 
-  const onSpeechEnd = (event) => {
-    console.log('onSpeechEnd:', event)
+  const onSpeechEnd = () => {
     setIsListening(false)
   }
 
   const onSpeechResults = (event) => {
-    console.log('onSpeechResults:', event)
     setResults(event.value)
     setIsListening(false)
   }
 
   const onSpeechPartialResults = (event) => {
-    console.log('onSpeechPartialResults:', event)
     setPartialResults(event.value)
   }
 
   const onSpeechVolumeChanged = (event) => {
-    console.log('onSpeechVolumeChanged:', event)
     setVolume(event.value)
   }
 
@@ -69,12 +63,21 @@ const Transcribe = () => {
       Voice.destroy().then(Voice.removeAllListeners)
   }, [])
 
+  const resetState = () => {
+    setIsLoading(null)
+    setIsListening(null)
+    setError(null)
+    setResults([])
+    setPartialResults([])
+    setVolume(null)
+  }
+
   const startRecognizing = async () => {
     setIsLoading(true)
     try {
       await Voice.start()
     } catch (error) {
-      console.log('start:', error)
+      setError(error)
     }
     setIsLoading(false)
   }
@@ -85,9 +88,18 @@ const Transcribe = () => {
       await Voice.stop()
       setIsListening(false)
     } catch (error) {
-      console.log('stop:', error)
+      setError(error)
     }
     setIsLoading(false)
+  }
+
+  const saveTranscript = () => {
+    addTranscript(results[0])
+    resetState()
+  }
+
+  const discardTranscript = () => {
+    resetState()
   }
 
   const onPress = useCallback(
@@ -111,6 +123,8 @@ const Transcribe = () => {
       results={results[0]}
       partialResults={partialResults[0]}
       volume={volume}
+      saveTranscript={saveTranscript}
+      discardTranscript={discardTranscript}
     />
   )
 }
