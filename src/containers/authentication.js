@@ -39,7 +39,7 @@ const Authentication = () => {
       : navigation.navigate('Auth')
   }, [navigation, user])
 
-  if (initializing) return null
+  if (initializing || user) return null
 
   return (
     <SignInScreen

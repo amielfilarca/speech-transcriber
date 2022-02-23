@@ -5,19 +5,16 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import { LogBox } from 'react-native'
 
 import TranscribeScreen from '../screens/transcribe.screen'
 
 const Transcribe = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isListening, setIsListening] = useState(false)
-  const [error, setError] = useState()
-  const [results, setResults] = useState()
-  const [partialResults, setPartialResults] = useState()
-  const [volume, setVolume] = useState()
-
-  LogBox.ignoreLogs(['new NativeEventEmitter()'])
+  const [error, setError] = useState(null)
+  const [results, setResults] = useState([])
+  const [partialResults, setPartialResults] = useState([])
+  const [volume, setVolume] = useState(null)
 
   const onSpeechStart = (event) => {
     console.log('onSpeechStart:', event)
@@ -105,8 +102,8 @@ const Transcribe = () => {
       isLoading={isLoading}
       buttonText={buttonText}
       error={error}
-      results={results}
-      partialResults={partialResults}
+      results={results[0]}
+      partialResults={partialResults[0]}
       volume={volume}
     />
   )
