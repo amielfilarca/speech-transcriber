@@ -3,6 +3,7 @@ import {
   Button,
   Center,
   Divider,
+  Heading,
   HStack,
   Pressable,
   Text,
@@ -14,9 +15,7 @@ import { SwipeListView } from 'react-native-swipe-list-view'
 const Transcripts = ({ transcripts, deleteTranscript }) => {
   return (
     <VStack flex={1} p={5} space={4} bg={'orange.50'}>
-      <Text fontSize={'3xl'} fontWeight={900}>
-        Transcripts
-      </Text>
+      <Heading>Transcripts</Heading>
       {transcripts.length > 0 ? (
         <SwipeListView
           data={transcripts}
@@ -33,17 +32,12 @@ const Transcripts = ({ transcripts, deleteTranscript }) => {
               }
             >
               <HStack space={4} alignItems={'center'}>
-                <Text
-                  fontSize={'2xs'}
-                  color={'gray.500'}
-                  fontWeight={600}
-                >
+                <Text fontSize={'2xs'} color={'gray.500'}>
                   {format(new Date(item.created), 'PPp')}
                 </Text>
                 <Text
                   flex={1}
                   numberOfLines={1}
-                  fontSize={'xl'}
                   fontWeight={700}
                 >
                   {item.value}

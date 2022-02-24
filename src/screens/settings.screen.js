@@ -24,27 +24,22 @@ const Settings = ({ signOut, isValidating, user }) => {
             >
               <Avatar
                 source={{ uri: user?.photoURL }}
-                size={'lg'}
-                m={8}
+                m={6}
               />
             </Center>
           </Center>
           <Center>
-            <Text fontSize={'2xl'} fontWeight={900}>
+            <Text fontSize={'lg'} fontWeight={700}>
               {user?.displayName}
             </Text>
-            <Text color={'gray.500'} fontWeight={500}>
-              {user?.email}
-            </Text>
+            <Text color={'gray.500'}>{user?.email}</Text>
           </Center>
         </VStack>
       </Center>
       <Button
         onPress={signOut}
         isDisabled={isValidating}
-        _text={{ fontSize: 'md', fontWeight: 900 }}
         colorScheme="danger"
-        variant={'subtle'}
       >
         Sign out
       </Button>
