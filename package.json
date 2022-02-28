@@ -7,10 +7,10 @@
     "ios": "react-native run-ios",
     "start": "watchman watch-del $(pwd) ; watchman watch-project $(pwd) && react-native start",
     "test": "jest",
-    "lint": "eslint *.js",
-    "lint:fix": "eslint --fix *.js",
-    "format": "prettier --check *.js",
-    "format:fix": "prettier --write *.js",
+    "lint": "eslint *.js src/**/*.js",
+    "lint:fix": "eslint --fix *.js src/**/*.js",
+    "format": "prettier --check *.js src/**/*.js",
+    "format:fix": "prettier --write *.js src/**/*.js",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -53,8 +53,8 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix *.js",
-      "prettier --write *.js"
+      "eslint --fix *.js src/**/*.js",
+      "prettier --write *.js src/**/*.js"
     ]
   },
   "husky": {

@@ -94,7 +94,7 @@ const Transcribe = () => {
   }
 
   const saveTranscript = () => {
-    addTranscript(results[0])
+    addTranscript({ body: results[0] })
     resetState()
   }
 
@@ -115,16 +115,16 @@ const Transcribe = () => {
 
   return (
     <TranscribeScreen
-      user={user}
-      onPress={onPress}
-      isLoading={isLoading}
       buttonText={buttonText}
-      error={error}
-      results={results[0]}
-      partialResults={partialResults[0]}
-      volume={volume}
-      saveTranscript={saveTranscript}
       discardTranscript={discardTranscript}
+      error={error}
+      isLoading={isLoading}
+      partialResults={partialResults[0]}
+      results={results[0]}
+      saveTranscript={saveTranscript}
+      user={user}
+      volume={volume}
+      onPress={onPress}
     />
   )
 }

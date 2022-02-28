@@ -10,8 +10,8 @@ const Settings = () => {
 
   return (
     <SettingsScreen
-      signOut={signOut}
       isValidating={isValidating}
+      signOut={signOut}
       user={user}
     />
   )

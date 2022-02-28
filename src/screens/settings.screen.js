@@ -10,10 +10,10 @@ import React from 'react'
 const Settings = ({ signOut, isValidating, user }) => {
   return (
     <VStack
+      bg="white"
       flex={1}
-      p={5}
-      bg={'white'}
       justifyContent="space-between"
+      p={5}
     >
       <Center flex={1}>
         <VStack space={4}>
@@ -21,17 +21,17 @@ const Settings = ({ signOut, isValidating, user }) => {
             <Avatar source={{ uri: user?.photoURL }} />
           </Center>
           <Center>
-            <Text fontSize={'lg'} fontWeight={'bold'}>
+            <Text fontSize="lg" fontWeight="bold">
               {user?.displayName}
             </Text>
-            <Text color={'gray.500'}>{user?.email}</Text>
+            <Text color="gray.500">{user?.email}</Text>
           </Center>
         </VStack>
       </Center>
       <Button
-        onPress={signOut}
-        isDisabled={isValidating}
         colorScheme="danger"
+        isDisabled={isValidating}
+        onPress={signOut}
       >
         Sign out
       </Button>

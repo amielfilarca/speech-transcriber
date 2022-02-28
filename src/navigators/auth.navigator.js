@@ -13,12 +13,12 @@ const AuthNavigator = () => {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen
-        name="Onboarding"
         component={OnboardingScreen}
+        name="Onboarding"
       />
       <Stack.Screen
-        name="SignIn"
         component={Authentication}
+        name="SignIn"
       />
     </Stack.Navigator>
   )
