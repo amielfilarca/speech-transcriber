@@ -7,16 +7,16 @@ const SignIn = ({ signInWithGoogle, isValidating }) => {
     <Box flex={1} p={5}>
       <Center flex={1}>
         <Heading>Speech Transcriber</Heading>
-        <Text color={'gray.500'} fontSize={'xs'}>
+        <Text color="gray.500" fontSize="xs">
           Powered by Google Speech Recognition
         </Text>
       </Center>
       <Center flex={1}>
         <GoogleSigninButton
-          size={GoogleSigninButton.Size.Wide}
           color={GoogleSigninButton.Color.Dark}
-          onPress={signInWithGoogle}
           disabled={isValidating}
+          size={GoogleSigninButton.Size.Wide}
+          onPress={signInWithGoogle}
         />
       </Center>
     </Box>

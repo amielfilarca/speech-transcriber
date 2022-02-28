@@ -14,10 +14,10 @@ const AppNavigator = () => {
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen
-          name="Auth"
           component={AuthNavigator}
+          name="Auth"
         />
-        <Stack.Screen name="App" component={TabNavigator} />
+        <Stack.Screen component={TabNavigator} name="App" />
       </Stack.Navigator>
     </AuthContextProvider>
   )

@@ -10,8 +10,8 @@ const Transcripts = () => {
 
   return (
     <TranscriptsScreen
-      transcripts={transcripts}
       deleteTranscript={deleteTranscript}
+      transcripts={transcripts}
     />
   )
 }

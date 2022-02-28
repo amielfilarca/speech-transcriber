@@ -14,49 +14,25 @@ import { SwipeListView } from 'react-native-swipe-list-view'
 
 const Transcripts = ({ transcripts, deleteTranscript }) => {
   return (
-    <VStack flex={1} p={5} space={4} bg={'white'}>
+    <VStack bg="white" flex={1} p={5} space={4}>
       <Heading>Transcripts</Heading>
       {transcripts.length > 0 ? (
         <SwipeListView
+          ItemSeparatorComponent={() => <Divider />}
           data={transcripts}
           keyExtractor={(item) => item.id}
-          stopLeftSwipe={50}
-          ItemSeparatorComponent={() => <Divider />}
-          rightOpenValue={-160}
-          renderItem={({ item }) => (
-            <Pressable
-              py={4}
-              bg={'white'}
-              onPress={() =>
-                console.log('Pressed ', item.id)
-              }
-            >
-              <HStack space={4} alignItems={'center'}>
-                <Text fontSize={'2xs'} color={'gray.500'}>
-                  {format(new Date(item.created), 'PPp')}
-                </Text>
-                <Text
-                  flex={1}
-                  numberOfLines={1}
-                  fontWeight={'bold'}
-                >
-                  {item.value}
-                </Text>
-              </HStack>
-            </Pressable>
-          )}
           renderHiddenItem={({ item }) => (
             <HStack
+              alignItems="center"
+              h="full"
+              justifyContent="flex-end"
               px={4}
-              h={'full'}
               space={4}
-              alignItems={'center'}
-              justifyContent={'flex-end'}
             >
               <Button
                 _text={{ fontSize: 'xs' }}
-                variant={'subtle'}
-                colorScheme={'info'}
+                colorScheme="info"
+                variant="subtle"
                 onPress={() =>
                   console.log('Edit ', item.id)
                 }
@@ -65,18 +41,42 @@ const Transcripts = ({ transcripts, deleteTranscript }) => {
               </Button>
               <Button
                 _text={{ fontSize: 'xs' }}
-                variant={'subtle'}
-                colorScheme={'danger'}
+                colorScheme="danger"
+                variant="subtle"
                 onPress={() => deleteTranscript(item.id)}
               >
                 Delete
               </Button>
             </HStack>
           )}
+          renderItem={({ item }) => (
+            <Pressable
+              bg="white"
+              py={4}
+              onPress={() =>
+                console.log('Pressed ', item.id)
+              }
+            >
+              <HStack alignItems="center" space={4}>
+                <Text color="gray.500" fontSize="2xs">
+                  {format(new Date(item.created), 'PPp')}
+                </Text>
+                <Text
+                  flex={1}
+                  fontWeight="bold"
+                  numberOfLines={1}
+                >
+                  {item.value}
+                </Text>
+              </HStack>
+            </Pressable>
+          )}
+          rightOpenValue={-160}
+          stopLeftSwipe={50}
         />
       ) : (
         <Center flex={1}>
-          <Text color={'gray.500'} fontWeight={'bold'}>
+          <Text color="gray.500" fontWeight="bold">
             Empty
           </Text>
         </Center>

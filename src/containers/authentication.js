@@ -43,8 +43,8 @@ const Authentication = () => {
 
   return (
     <SignInScreen
-      signInWithGoogle={signInWithGoogle}
       isValidating={isValidating}
+      signInWithGoogle={signInWithGoogle}
     />
   )
 }

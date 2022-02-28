@@ -18,43 +18,43 @@ const TabsNavigator = () => {
         screenOptions={{ headerShown: false }}
       >
         <Tabs.Screen
-          name="Transcribe"
           component={Transcribe}
+          name="Transcribe"
           options={{
             tabBarIcon: ({ color, size }) => (
               <Icon
                 as={Foundation}
+                color={color}
                 name="hearing-aid"
-                color={color}
                 size={size}
-                textAlign={'center'}
+                textAlign="center"
               />
             ),
           }}
         />
         <Tabs.Screen
-          name="Transcripts"
           component={Transcripts}
+          name="Transcripts"
           options={{
             tabBarIcon: ({ color, size }) => (
               <Icon
                 as={AntDesign}
-                name="inbox"
                 color={color}
+                name="inbox"
                 size={size}
               />
             ),
           }}
         />
         <Tabs.Screen
-          name="Settings"
           component={Settings}
+          name="Settings"
           options={{
             tabBarIcon: ({ color, size }) => (
               <Icon
                 as={AntDesign}
-                name="setting"
                 color={color}
+                name="setting"
                 size={size}
               />
             ),
