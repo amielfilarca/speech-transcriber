@@ -1,10 +1,10 @@
 import { GoogleSigninButton } from '@react-native-google-signin/google-signin'
-import { Box, Center, Heading, Text } from 'native-base'
+import { Center, Heading, Text, VStack } from 'native-base'
 import React from 'react'
 
 const SignIn = ({ signInWithGoogle, isValidating }) => {
   return (
-    <Box flex={1} p={5}>
+    <VStack flex={1} p={5} bg="white">
       <Center flex={1}>
         <Heading>Speech Transcriber</Heading>
         <Text color="gray.500" fontSize="xs">
@@ -19,7 +19,7 @@ const SignIn = ({ signInWithGoogle, isValidating }) => {
           onPress={signInWithGoogle}
         />
       </Center>
-    </Box>
+    </VStack>
   )
 }
 

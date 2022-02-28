@@ -35,14 +35,14 @@ const Transcribe = ({
         <Divider />
         <ScrollView flex={1}>
           <Box>
-            <Text color="gray.500">Results:</Text>
+            <Text color="gray.500">Result:</Text>
             <Text fontWeight="bold">{results}</Text>
           </Box>
         </ScrollView>
         <Divider />
         <ScrollView flex={1}>
           <Box>
-            <Text color="gray.500">Partial Results:</Text>
+            <Text color="gray.500">Partial Result:</Text>
             <Text fontWeight="bold">{partialResults}</Text>
           </Box>
         </ScrollView>

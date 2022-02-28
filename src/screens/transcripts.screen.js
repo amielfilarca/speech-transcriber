@@ -1,5 +1,6 @@
 import { format } from 'date-fns'
 import {
+  Box,
   Button,
   Center,
   Divider,
@@ -12,21 +13,33 @@ import {
 import React from 'react'
 import { SwipeListView } from 'react-native-swipe-list-view'
 
-const Transcripts = ({ transcripts, deleteTranscript }) => {
+const Transcripts = ({
+  transcripts,
+  deleteTranscript,
+  handleViewTranscript,
+  handleEditTranscript,
+}) => {
   return (
-    <VStack bg="white" flex={1} p={5} space={4}>
-      <Heading>Transcripts</Heading>
+    <VStack bg="white" flex={1} space={4}>
+      <Heading p={5} pb={0}>
+        Transcripts
+      </Heading>
       {transcripts.length > 0 ? (
         <SwipeListView
-          ItemSeparatorComponent={() => <Divider />}
+          ItemSeparatorComponent={() => (
+            <Box px={5}>
+              <Divider />
+            </Box>
+          )}
           data={transcripts}
-          keyExtractor={(item) => item.id}
-          renderHiddenItem={({ item }) => (
+          keyExtractor={(transcript) => transcript.id}
+          renderHiddenItem={({ item: transcript }) => (
             <HStack
               alignItems="center"
-              h="full"
               justifyContent="flex-end"
-              px={4}
+              h="full"
+              px={5}
+              py={2}
               space={4}
             >
               <Button
@@ -34,7 +47,7 @@ const Transcripts = ({ transcripts, deleteTranscript }) => {
                 colorScheme="info"
                 variant="subtle"
                 onPress={() =>
-                  console.log('Edit ', item.id)
+                  handleEditTranscript(transcript.id)
                 }
               >
                 Edit
@@ -43,31 +56,38 @@ const Transcripts = ({ transcripts, deleteTranscript }) => {
                 _text={{ fontSize: 'xs' }}
                 colorScheme="danger"
                 variant="subtle"
-                onPress={() => deleteTranscript(item.id)}
+                onPress={() =>
+                  deleteTranscript(transcript.id)
+                }
               >
                 Delete
               </Button>
             </HStack>
           )}
-          renderItem={({ item }) => (
+          renderItem={({ item: transcript }) => (
             <Pressable
               bg="white"
-              py={4}
+              px={5}
+              py={2}
               onPress={() =>
-                console.log('Pressed ', item.id)
+                handleViewTranscript(transcript.id)
               }
             >
               <HStack alignItems="center" space={4}>
                 <Text color="gray.500" fontSize="2xs">
-                  {format(new Date(item.created), 'PPp')}
+                  {format(
+                    new Date(transcript.updatedAt),
+                    'PPp'
+                  )}
                 </Text>
-                <Text
-                  flex={1}
-                  fontWeight="bold"
-                  numberOfLines={1}
-                >
-                  {item.value}
-                </Text>
+                <VStack flex={1}>
+                  <Text numberOfLines={1} fontWeight="bold">
+                    {transcript.title}
+                  </Text>
+                  <Text numberOfLines={1}>
+                    {transcript.body}
+                  </Text>
+                </VStack>
               </HStack>
             </Pressable>
           )}

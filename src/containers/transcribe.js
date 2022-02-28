@@ -94,7 +94,7 @@ const Transcribe = () => {
   }
 
   const saveTranscript = () => {
-    addTranscript(results[0])
+    addTranscript({ body: results[0] })
     resetState()
   }
 
