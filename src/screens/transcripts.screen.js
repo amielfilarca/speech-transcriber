@@ -14,7 +14,7 @@ import { SwipeListView } from 'react-native-swipe-list-view'
 
 const Transcripts = ({ transcripts, deleteTranscript }) => {
   return (
-    <VStack flex={1} p={5} space={4} bg={'orange.50'}>
+    <VStack flex={1} p={5} space={4} bg={'white'}>
       <Heading>Transcripts</Heading>
       {transcripts.length > 0 ? (
         <SwipeListView
@@ -25,8 +25,8 @@ const Transcripts = ({ transcripts, deleteTranscript }) => {
           rightOpenValue={-160}
           renderItem={({ item }) => (
             <Pressable
-              p={4}
-              bg={'orange.50'}
+              py={4}
+              bg={'white'}
               onPress={() =>
                 console.log('Pressed ', item.id)
               }
@@ -38,7 +38,7 @@ const Transcripts = ({ transcripts, deleteTranscript }) => {
                 <Text
                   flex={1}
                   numberOfLines={1}
-                  fontWeight={700}
+                  fontWeight={'bold'}
                 >
                   {item.value}
                 </Text>
@@ -76,11 +76,7 @@ const Transcripts = ({ transcripts, deleteTranscript }) => {
         />
       ) : (
         <Center flex={1}>
-          <Text
-            color={'gray.500'}
-            fontSize={'lg'}
-            fontWeight={900}
-          >
+          <Text color={'gray.500'} fontWeight={'bold'}>
             Empty
           </Text>
         </Center>

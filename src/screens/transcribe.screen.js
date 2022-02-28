@@ -21,14 +21,14 @@ const Transcribe = ({
   discardTranscript,
 }) => {
   return (
-    <VStack flex={1} p={5} space={4} bg="orange.50">
+    <VStack flex={1} p={5} space={4} bg={'white'}>
       <Box>
         <Heading>Transcribe</Heading>
       </Box>
       <VStack flex={1} space={4} justifyContent={'center'}>
         <Box>
           <Text color={'gray.500'}>Error:</Text>
-          <Text fontWeight={700}>
+          <Text fontWeight={'bold'}>
             {error || 'No error'}
           </Text>
         </Box>
@@ -36,20 +36,22 @@ const Transcribe = ({
         <ScrollView flex={1}>
           <Box>
             <Text color={'gray.500'}>Results:</Text>
-            <Text fontWeight={700}>{results}</Text>
+            <Text fontWeight={'bold'}>{results}</Text>
           </Box>
         </ScrollView>
         <Divider />
         <ScrollView flex={1}>
           <Box>
             <Text color={'gray.500'}>Partial Results:</Text>
-            <Text fontWeight={700}>{partialResults}</Text>
+            <Text fontWeight={'bold'}>
+              {partialResults}
+            </Text>
           </Box>
         </ScrollView>
         <Divider />
         <Box>
           <Text color={'gray.500'}>Volume:</Text>
-          <Text fontWeight={700}>{volume || 0}</Text>
+          <Text fontWeight={'bold'}>{volume || 0}</Text>
         </Box>
       </VStack>
       {!results && (

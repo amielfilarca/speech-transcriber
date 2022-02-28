@@ -32,7 +32,6 @@ const theme = extendTheme({
   fonts: {
     heading: 'Inter',
     body: 'Inter',
-    mono: 'Inter',
   },
 })
 

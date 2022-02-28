@@ -12,24 +12,16 @@ const Settings = ({ signOut, isValidating, user }) => {
     <VStack
       flex={1}
       p={5}
-      bg="orange.50"
+      bg={'white'}
       justifyContent="space-between"
     >
       <Center flex={1}>
         <VStack space={4}>
           <Center>
-            <Center
-              borderRadius={'full'}
-              bgColor="orange.100"
-            >
-              <Avatar
-                source={{ uri: user?.photoURL }}
-                m={6}
-              />
-            </Center>
+            <Avatar source={{ uri: user?.photoURL }} />
           </Center>
           <Center>
-            <Text fontSize={'lg'} fontWeight={700}>
+            <Text fontSize={'lg'} fontWeight={'bold'}>
               {user?.displayName}
             </Text>
             <Text color={'gray.500'}>{user?.email}</Text>
