@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
 
+import Authentication from '../containers/authentication'
 import ViewTranscript from '../containers/view-transcript'
 import AuthContextProvider from '../contexts/auth.context'
 import TranscriptContextProvider from '../contexts/transcript.context'
-import AuthNavigator from './auth.navigator'
 import TabNavigator from './tabs.navigator'
 
 const Stack = createNativeStackNavigator()
@@ -14,10 +14,11 @@ const AppNavigator = () => {
     <AuthContextProvider>
       <TranscriptContextProvider>
         <Stack.Navigator
+          initialRouteName="Auth"
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen
-            component={AuthNavigator}
+            component={Authentication}
             name="Auth"
           />
           <Stack.Screen

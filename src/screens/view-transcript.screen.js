@@ -29,7 +29,7 @@ const ViewTranscript = ({
           </HStack>
         </Link>
         {isEdited && (
-          <Button p={0} variant="unstyled" onPress={onSave}>
+          <Button variant="unstyled" p={0} onPress={onSave}>
             Save
           </Button>
         )}
@@ -37,6 +37,7 @@ const ViewTranscript = ({
       <VStack flex={1}>
         <Input
           fontWeight="bold"
+          fontSize="sm"
           variant="unstyled"
           defaultValue={transcript.title}
           placeholder="Title"
@@ -44,9 +45,10 @@ const ViewTranscript = ({
         />
         <TextArea
           flex={1}
+          fontSize="sm"
           variant="unstyled"
-          defaultValue={transcript.body}
           placeholder="Body"
+          defaultValue={transcript.body}
           onChangeText={onEditBody}
         />
       </VStack>

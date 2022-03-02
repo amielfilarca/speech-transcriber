@@ -1,4 +1,5 @@
 import Voice from '@react-native-voice/voice'
+import { useToast } from 'native-base'
 import React, {
   useCallback,
   useContext,
@@ -20,6 +21,33 @@ const Transcribe = () => {
   const [results, setResults] = useState([])
   const [partialResults, setPartialResults] = useState([])
   const [volume, setVolume] = useState(null)
+
+  const toast = useToast()
+
+  const toastError = useMemo(
+    () => ({
+      id: error,
+      title: 'Error',
+      status: 'error',
+      description: error,
+      placement: 'top',
+      mx: 5,
+    }),
+    [error]
+  )
+
+  useEffect(() => {
+    if (error && toast.isActive(error)) {
+      toast.close(error)
+    }
+
+    if (error && !toast.isActive(error)) {
+      toast.show(toastError)
+    }
+
+    setError(null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
 
   const onSpeechStart = () => {
     setError(null)
@@ -47,7 +75,9 @@ const Transcribe = () => {
   }
 
   const onSpeechVolumeChanged = (event) => {
-    setVolume(event.value)
+    const volume = event.value
+    if (volume > 0) return setVolume(volume * 10)
+    return setVolume(0)
   }
 
   useEffect(() => {
@@ -102,6 +132,11 @@ const Transcribe = () => {
     resetState()
   }
 
+  const transcript = useMemo(
+    () => (isListening ? partialResults[0] : results[0]),
+    [isListening, partialResults, results]
+  )
+
   const onPress = useCallback(
     () =>
       isListening ? stopRecognizing() : startRecognizing(),
@@ -121,6 +156,7 @@ const Transcribe = () => {
       isLoading={isLoading}
       partialResults={partialResults[0]}
       results={results[0]}
+      transcript={transcript}
       saveTranscript={saveTranscript}
       user={user}
       volume={volume}

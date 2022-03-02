@@ -15,9 +15,8 @@ import { SwipeListView } from 'react-native-swipe-list-view'
 
 const Transcripts = ({
   transcripts,
-  deleteTranscript,
-  handleViewTranscript,
-  handleEditTranscript,
+  viewTranscript,
+  onDelete,
 }) => {
   return (
     <VStack bg="white" flex={1} space={4}>
@@ -44,21 +43,9 @@ const Transcripts = ({
             >
               <Button
                 _text={{ fontSize: 'xs' }}
-                colorScheme="info"
-                variant="subtle"
-                onPress={() =>
-                  handleEditTranscript(transcript.id)
-                }
-              >
-                Edit
-              </Button>
-              <Button
-                _text={{ fontSize: 'xs' }}
                 colorScheme="danger"
                 variant="subtle"
-                onPress={() =>
-                  deleteTranscript(transcript.id)
-                }
+                onPress={() => onDelete(transcript.id)}
               >
                 Delete
               </Button>
@@ -69,9 +56,7 @@ const Transcripts = ({
               bg="white"
               px={5}
               py={2}
-              onPress={() =>
-                handleViewTranscript(transcript.id)
-              }
+              onPress={() => viewTranscript(transcript.id)}
             >
               <HStack alignItems="center" space={4}>
                 <Text color="gray.500" fontSize="2xs">
@@ -91,8 +76,8 @@ const Transcripts = ({
               </HStack>
             </Pressable>
           )}
-          rightOpenValue={-160}
-          stopLeftSwipe={50}
+          rightOpenValue={-100}
+          stopLeftSwipe={100}
         />
       ) : (
         <Center flex={1}>

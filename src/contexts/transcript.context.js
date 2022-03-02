@@ -1,12 +1,23 @@
-import React, { createContext, useState } from 'react'
+import React, {
+  createContext,
+  useEffect,
+  useState,
+} from 'react'
 import uuid from 'react-native-uuid'
 
-import { getCurrentDate } from '../utils'
+import { getCurrentDate, sortBy } from '../utils'
 
 export const TranscriptContext = createContext()
 
 const TranscriptContextProvider = ({ children }) => {
   const [transcripts, setTranscripts] = useState([])
+
+  useEffect(() => {
+    sortBy(transcripts, (transcript) => [
+      -new Date(transcript.createdAt),
+      -transcript.id,
+    ])
+  }, [transcripts])
 
   const addTranscript = ({ title, body }) => {
     const now = getCurrentDate()
