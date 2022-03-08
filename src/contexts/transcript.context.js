@@ -1,78 +1,102 @@
 import React, {
   createContext,
+  useCallback,
+  useContext,
   useEffect,
   useState,
 } from 'react'
 import uuid from 'react-native-uuid'
 
-import { getCurrentDate, sortBy } from '../utils'
+import {
+  useCreateTranscript,
+  useDeleteTranscript,
+  useTranscripts,
+  useUpdateTranscript,
+} from '../actions/firestore.action'
+import {
+  getCurrentDate,
+  getDefaultTitle,
+  sortBy,
+} from '../utils'
+import { AuthContext } from './auth.context'
 
 export const TranscriptContext = createContext()
 
 const TranscriptContextProvider = ({ children }) => {
   const [transcripts, setTranscripts] = useState([])
+  const { user } = useContext(AuthContext)
+  const {
+    data: transcriptsData,
+    isValidating: isTranscriptsValidating,
+    mutate: mutateTranscripts,
+  } = useTranscripts(user)
+  const { createTranscript } = useCreateTranscript()
+  const {
+    updateTranscript,
+    isValidating: isUpdateTranscriptValidating,
+  } = useUpdateTranscript()
+  const { deleteTranscript } = useDeleteTranscript()
 
   useEffect(() => {
-    sortBy(transcripts, (transcript) => [
-      -new Date(transcript.createdAt),
-      -transcript.id,
-    ])
-  }, [transcripts])
+    if (!transcriptsData) return
+    const sortedData = sortBy(
+      transcriptsData,
+      (transcript) => [
+        -new Date(transcript.updatedAt),
+        -new Date(transcript.createdAt),
+        -transcript.id,
+      ]
+    )
+    setTranscripts(sortedData)
+  }, [transcriptsData])
 
-  const addTranscript = ({ title, body }) => {
-    const now = getCurrentDate()
+  const addTranscriptAsync = useCallback(
+    async (transcript) => {
+      const now = getCurrentDate()
+      const payload = {
+        id: uuid.v4(),
+        user: user.uid,
+        title: getDefaultTitle(transcript),
+        body: transcript,
+        createdAt: now,
+        updatedAt: now,
+      }
+      await createTranscript(user, payload)
+      await mutateTranscripts()
+    },
+    [user, createTranscript, mutateTranscripts]
+  )
 
-    const transcript = {
-      id: uuid.v4(),
-      title: title
-        ? title
-        : `Transcript #${transcripts.length + 1}`,
-      body,
-      createdAt: now,
-      updatedAt: now,
-    }
+  const updateTranscriptAsync = useCallback(
+    async (transcript) => {
+      const payload = {
+        ...transcript,
+        updatedAt: getCurrentDate(),
+      }
+      await updateTranscript(user, payload)
+      await mutateTranscripts()
+    },
+    [user, updateTranscript, mutateTranscripts]
+  )
 
-    setTranscripts([transcript, ...transcripts])
-
-    return transcript
-  }
-
-  const getTranscript = (id) => {
-    return transcripts.find((t) => t.id === id)
-  }
-
-  const updateTranscript = (transcript) => {
-    setTranscripts([
-      ...transcripts.map((t) =>
-        t.id === transcript.id
-          ? {
-              ...t,
-              ...transcript,
-              updatedAt: getCurrentDate(),
-            }
-          : t
-      ),
-    ])
-    return transcript
-  }
-
-  const deleteTranscript = (id) => {
-    setTranscripts([
-      ...transcripts.filter(
-        (transcript) => transcript.id !== id
-      ),
-    ])
-    return true
-  }
+  const deleteTranscriptAsync = useCallback(
+    async (transcript) => {
+      await deleteTranscript(user, transcript)
+      await mutateTranscripts()
+    },
+    [user, deleteTranscript, mutateTranscripts]
+  )
 
   return (
     <TranscriptContext.Provider
       value={{
         transcripts,
-        addTranscript,
-        getTranscript,
-        updateTranscript,
-        deleteTranscript,
+        addTranscriptAsync,
+        updateTranscriptAsync,
+        deleteTranscriptAsync,
+        isTranscriptsValidating,
+        isUpdateTranscriptValidating,
+        mutateTranscripts,
       }}
     >
       {children}

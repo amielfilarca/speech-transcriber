@@ -11,12 +11,15 @@ import {
   VStack,
 } from 'native-base'
 import React from 'react'
+import { RefreshControl } from 'react-native'
 import { SwipeListView } from 'react-native-swipe-list-view'
 
 const Transcripts = ({
   transcripts,
   viewTranscript,
   onDelete,
+  isTranscriptsValidating,
+  mutateTranscripts,
 }) => {
   return (
     <VStack bg="white" flex={1} space={4}>
@@ -32,11 +35,17 @@ const Transcripts = ({
           )}
           data={transcripts}
           keyExtractor={(transcript) => transcript.id}
+          refreshControl={
+            <RefreshControl
+              refreshing={isTranscriptsValidating}
+              onRefresh={mutateTranscripts}
+            />
+          }
           renderHiddenItem={({ item: transcript }) => (
             <HStack
               alignItems="center"
-              justifyContent="flex-end"
               h="full"
+              justifyContent="flex-end"
               px={5}
               py={2}
               space={4}
@@ -45,7 +54,7 @@ const Transcripts = ({
                 _text={{ fontSize: 'xs' }}
                 colorScheme="danger"
                 variant="subtle"
-                onPress={() => onDelete(transcript.id)}
+                onPress={() => onDelete(transcript)}
               >
                 Delete
               </Button>
@@ -56,7 +65,7 @@ const Transcripts = ({
               bg="white"
               px={5}
               py={2}
-              onPress={() => viewTranscript(transcript.id)}
+              onPress={() => viewTranscript(transcript)}
             >
               <HStack alignItems="center" space={4}>
                 <Text color="gray.500" fontSize="2xs">
@@ -66,7 +75,7 @@ const Transcripts = ({
                   )}
                 </Text>
                 <VStack flex={1}>
-                  <Text numberOfLines={1} fontWeight="bold">
+                  <Text fontWeight="bold" numberOfLines={1}>
                     {transcript.title}
                   </Text>
                   <Text numberOfLines={1}>

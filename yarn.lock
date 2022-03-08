@@ -1727,6 +1727,11 @@
   resolved "https://registry.yarnpkg.com/@react-native-firebase/auth/-/auth-14.5.0.tgz#890b9cf4ae8eef4b6fc4cb5f762d54144df70ac8"
   integrity sha512-4Gu7VjxLxa7x/0dcfhT/woUCPIWq2jzLaIAca2wrg7xS3x6egFIXC/GiVGJ3WPD9pe0XJDi/lcISR+F8j2Gc2w==
 
+"@react-native-firebase/firestore@^14.5.0":
+  version "14.5.0"
+  resolved "https://registry.yarnpkg.com/@react-native-firebase/firestore/-/firestore-14.5.0.tgz#c4455614d15bb681197d560df912f860cd979ada"
+  integrity sha512-cYHGYWXJaAOma3O6GC3P+mBt3E6v3tTbb4c1Q6dFZfci0DefnaGt/nWp5YaE+HFKrrGc25vVyER9RDZsTU6Jjg==
+
 "@react-native-google-signin/google-signin@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@react-native-google-signin/google-signin/-/google-signin-7.1.0.tgz#de39000dc1e095c54b8136436ad43cfd8c938a0c"
@@ -3623,7 +3628,7 @@ eslint-visitor-keys@^3.3.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-3.3.0.tgz#f6480fa6b1f30efe2d1968aa8ac745b862469826"
   integrity sha512-mQ+suqKJVyeuwGYHAdjMFqjCyfl8+Ldnxuyp3ldiMBFKkvytrXUZWaiPCEav8qDHKty44bD+qV1IP4T+w+xXRA==
 
-eslint@^8.9.0:
+eslint@^8.10.0:
   version "8.10.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-8.10.0.tgz#931be395eb60f900c01658b278e05b6dae47199d"
   integrity sha512-tcI1D9lfVec+R4LE1mNDnzoJ/f71Kl/9Cv4nG47jOueCMBrCCKYXr4AUVS7go6mWYGFD4+EoN6+eXSrEbRzXVw==
@@ -6577,6 +6582,11 @@ react-is@^17.0.1:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
+
+react-native-clean-project@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-clean-project/-/react-native-clean-project-4.0.1.tgz#c0e2b17eebf32a683aa67da45fe7932857166da7"
+  integrity sha512-B7rXdFC4bfA+Vv7lZ9bKS6cUDgqg04OR5D69sNnhheFBJQ1V04cIfJ1Fu0sbqRsIehqlOcySQRpp8tm7r7PvLQ==
 
 react-native-codegen@^0.0.8:
   version "0.0.8"

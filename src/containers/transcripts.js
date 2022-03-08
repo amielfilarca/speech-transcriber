@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import React, {
+  useCallback,
   useContext,
   useMemo,
   useRef,
@@ -11,49 +12,55 @@ import { TranscriptContext } from '../contexts/transcript.context'
 import TranscriptsScreen from '../screens/transcripts.screen'
 
 const Transcripts = () => {
-  const { transcripts, deleteTranscript } = useContext(
-    TranscriptContext
-  )
+  const {
+    transcripts,
+    deleteTranscriptAsync,
+    isTranscriptsValidating,
+    mutateTranscripts,
+  } = useContext(TranscriptContext)
 
   const navigation = useNavigation()
 
-  const viewTranscript = (id) => {
-    navigation.navigate('View Transcript', { id })
+  const viewTranscript = (transcript) => {
+    navigation.navigate('View Transcript', { transcript })
   }
 
-  const [id, setId] = useState()
-  const isOpen = useMemo(() => !!id, [id])
+  const [transcript, setTranscript] = useState()
+  const isOpen = useMemo(() => !!transcript, [transcript])
   const cancelRef = useRef(null)
 
-  const onDelete = (id) => {
-    setId(id)
+  const onDelete = (transcript) => {
+    setTranscript(transcript)
   }
 
   const onCancel = () => {
-    setId()
+    setTranscript()
   }
 
-  const onConfirm = () => {
-    deleteTranscript(id)
-    setId()
-  }
+  const onConfirm = useCallback(() => {
+    const payload = transcript
+    setTranscript()
+    deleteTranscriptAsync(payload)
+  }, [deleteTranscriptAsync, transcript])
 
   return (
     <>
       <TranscriptsScreen
+        isTranscriptsValidating={isTranscriptsValidating}
+        mutateTranscripts={mutateTranscripts}
         transcripts={transcripts}
         viewTranscript={viewTranscript}
         onDelete={onDelete}
       />
       <AlertDialog
-        header="Delete Transcript"
         body="This will delete the transcript. This action
       cannot be reversed. Deleted data can not be
       recovered."
-        status="danger"
         confirm="Delete"
-        leastDestructiveRef={cancelRef}
+        header="Delete Transcript"
         isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        status="danger"
         onCancel={onCancel}
         onConfirm={onConfirm}
       />

@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Center,
   Heading,
@@ -22,15 +21,16 @@ const Transcribe = ({
 }) => {
   return (
     <VStack bg="white" flex={1} p={5} space={4}>
-      <Box>
-        <Heading>Transcribe</Heading>
-      </Box>
+      <Heading>Transcribe</Heading>
       <ScrollView _contentContainerStyle={{ flex: 1 }}>
         <Center flex={1}>
           {transcript ? (
             <Text fontSize="xl">{transcript}</Text>
           ) : (
-            <Text color="gray.500">Start Talking</Text>
+            <Text color="gray.500" fontSize="xs">
+              Press the start button to begin recognizing
+              speech
+            </Text>
           )}
         </Center>
       </ScrollView>
