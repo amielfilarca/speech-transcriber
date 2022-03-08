@@ -7,7 +7,10 @@ import AppNavigator from './src/navigators/app.navigator'
 import theme from './src/theme'
 
 const App = () => {
-  LogBox.ignoreLogs(['NativeEventEmitter'])
+  LogBox.ignoreLogs([
+    'NativeEventEmitter',
+    'Remote debugger is in a background tab which may cause apps to perform slowly.',
+  ])
 
   return (
     <NativeBaseProvider theme={theme}>

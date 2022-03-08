@@ -16,8 +16,8 @@ const AlertDialog = ({
 }) => {
   return (
     <NbAlertDialog
-      leastDestructiveRef={leastDestructiveRef}
       isOpen={isOpen}
+      leastDestructiveRef={leastDestructiveRef}
       onClose={onCancel}
     >
       <NbAlertDialog.Content>
@@ -30,8 +30,8 @@ const AlertDialog = ({
           <Button.Group space={2}>
             <Button
               ref={leastDestructiveRef}
-              variant="unstyled"
               colorScheme="coolGray"
+              variant="unstyled"
               onPress={onCancel}
             >
               Cancel

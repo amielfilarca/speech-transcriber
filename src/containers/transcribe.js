@@ -14,7 +14,9 @@ import TranscribeScreen from '../screens/transcribe.screen'
 
 const Transcribe = () => {
   const { user } = useContext(AuthContext)
-  const { addTranscript } = useContext(TranscriptContext)
+  const { addTranscriptAsync } = useContext(
+    TranscriptContext
+  )
   const [isLoading, setIsLoading] = useState(false)
   const [isListening, setIsListening] = useState(false)
   const [error, setError] = useState(null)
@@ -124,7 +126,7 @@ const Transcribe = () => {
   }
 
   const saveTranscript = () => {
-    addTranscript({ body: results[0] })
+    addTranscriptAsync(results[0])
     resetState()
   }
 
@@ -156,8 +158,8 @@ const Transcribe = () => {
       isLoading={isLoading}
       partialResults={partialResults[0]}
       results={results[0]}
-      transcript={transcript}
       saveTranscript={saveTranscript}
+      transcript={transcript}
       user={user}
       volume={volume}
       onPress={onPress}

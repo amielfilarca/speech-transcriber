@@ -35,8 +35,6 @@
       {
         "callbacksLast": true,
         "shorthandFirst": true,
-        "ignoreCase": true,
-        "noSortAlphabetically": true,
         "reservedFirst": true
       }
     ],
