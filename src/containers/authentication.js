@@ -4,19 +4,37 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react'
 
-import { useSignInWithGoogle } from '../actions/auth.action'
+import {
+  useSignInAnonymously,
+  useSignInWithGoogle,
+} from '../actions/auth.action'
 import { AuthContext } from '../contexts/auth.context'
 import SignInScreen from '../screens/sign-in.screen'
 
 const Authentication = () => {
   const navigation = useNavigation()
-  const { signInWithGoogle, isValidating } =
+  const { signInWithGoogle, isSignInWithGoogleValidating } =
     useSignInWithGoogle()
+  const {
+    signInAnonymously,
+    isSignInAnonymouslyValidating,
+  } = useSignInAnonymously()
   const { user, setUser } = useContext(AuthContext)
   const [initializing, setInitializing] = useState(true)
+
+  const isValidating = useMemo(
+    () =>
+      isSignInWithGoogleValidating ||
+      isSignInAnonymouslyValidating,
+    [
+      isSignInWithGoogleValidating,
+      isSignInAnonymouslyValidating,
+    ]
+  )
 
   const onAuthStateChanged = useCallback(
     (user) => {
@@ -44,6 +62,7 @@ const Authentication = () => {
   return (
     <SignInScreen
       isValidating={isValidating}
+      signInAnonymously={signInAnonymously}
       signInWithGoogle={signInWithGoogle}
     />
   )

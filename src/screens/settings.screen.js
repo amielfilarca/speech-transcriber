@@ -18,12 +18,21 @@ const Settings = ({ signOut, isValidating, user }) => {
       <Center flex={1}>
         <VStack space={4}>
           <Center>
-            <Avatar source={{ uri: user?.photoURL }} />
+            <Avatar
+              bg="gray.100"
+              source={{ uri: user?.photoURL }}
+            />
           </Center>
           <Center>
-            <Text fontSize="lg" fontWeight="bold">
-              {user?.displayName}
-            </Text>
+            {user?.isAnonymous ? (
+              <Text fontSize="lg" fontWeight="bold">
+                Guest
+              </Text>
+            ) : (
+              <Text fontSize="lg" fontWeight="bold">
+                {user?.displayName}
+              </Text>
+            )}
             <Text color="gray.500">{user?.email}</Text>
           </Center>
         </VStack>

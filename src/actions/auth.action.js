@@ -7,7 +7,7 @@ GoogleSignin.configure({
     '449715880728-mle7tsnuqt6ktlfgfnbmp3r5nm08cqcv.apps.googleusercontent.com',
 })
 
-const useSignInWithGoogle = () => {
+export const useSignInWithGoogle = () => {
   const [data, setData] = useState()
   const [error, setError] = useState()
   const [isValidating, setIsValidating] = useState()
@@ -33,7 +33,7 @@ const useSignInWithGoogle = () => {
   return { signInWithGoogle, data, error, isValidating }
 }
 
-const useSignOutWithGoogle = () => {
+export const useSignOutWithGoogle = () => {
   const [error, setError] = useState()
   const [isValidating, setIsValidating] = useState()
 
@@ -52,7 +52,7 @@ const useSignOutWithGoogle = () => {
   return { signOutWithGoogle, error, isValidating }
 }
 
-const useSignOut = () => {
+export const useSignOut = () => {
   const [error, setError] = useState()
   const [isValidating, setIsValidating] = useState()
 
@@ -71,8 +71,23 @@ const useSignOut = () => {
   return { signOut, error, isValidating }
 }
 
-export {
-  useSignInWithGoogle,
-  useSignOut,
-  useSignOutWithGoogle,
+export const useSignInAnonymously = () => {
+  const [data, setData] = useState()
+  const [error, setError] = useState()
+  const [isValidating, setIsValidating] = useState()
+
+  const signInAnonymously = async () => {
+    setIsValidating(true)
+
+    try {
+      const user = await auth().signInAnonymously()
+      setData(user)
+    } catch (error) {
+      setError(error)
+    }
+
+    setIsValidating(false)
+  }
+
+  return { signInAnonymously, data, error, isValidating }
 }
