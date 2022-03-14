@@ -1,5 +1,6 @@
 import auth from '@react-native-firebase/auth'
 import { useNavigation } from '@react-navigation/core'
+import { useToast } from 'native-base'
 import React, {
   useCallback,
   useContext,
@@ -17,11 +18,15 @@ import SignInScreen from '../screens/sign-in.screen'
 
 const Authentication = () => {
   const navigation = useNavigation()
-  const { signInWithGoogle, isSignInWithGoogleValidating } =
-    useSignInWithGoogle()
+  const {
+    signInWithGoogle,
+    isValidating: isSignInWithGoogleValidating,
+    error: errorSignInWithGoogle,
+  } = useSignInWithGoogle()
   const {
     signInAnonymously,
-    isSignInAnonymouslyValidating,
+    isValidating: isSignInAnonymouslyValidating,
+    error: errorSignInAnonymously,
   } = useSignInAnonymously()
   const { user, setUser } = useContext(AuthContext)
   const [initializing, setInitializing] = useState(true)
@@ -35,6 +40,36 @@ const Authentication = () => {
       isSignInAnonymouslyValidating,
     ]
   )
+
+  const error = useMemo(
+    () => errorSignInWithGoogle || errorSignInAnonymously,
+    [errorSignInWithGoogle, errorSignInAnonymously]
+  )
+
+  const toast = useToast()
+
+  const toastError = useMemo(
+    () => ({
+      id: error?.code,
+      title: 'Error',
+      status: 'error',
+      description: error?.message,
+      placement: 'top',
+      mx: 5,
+    }),
+    [error]
+  )
+
+  useEffect(() => {
+    if (error && toast.isActive(error?.code)) {
+      toast.close(error)
+    }
+
+    if (error && !toast.isActive(error?.code)) {
+      toast.show(toastError)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error])
 
   const onAuthStateChanged = useCallback(
     (user) => {

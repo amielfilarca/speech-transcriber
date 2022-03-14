@@ -7,7 +7,12 @@ import {
 } from 'native-base'
 import React from 'react'
 
-const Settings = ({ signOut, isValidating, user }) => {
+const Settings = ({
+  signOut,
+  isValidating,
+  user,
+  linkToGoogleAccount,
+}) => {
   return (
     <VStack
       bg="white"
@@ -20,7 +25,9 @@ const Settings = ({ signOut, isValidating, user }) => {
           <Center>
             <Avatar
               bg="gray.100"
-              source={{ uri: user?.photoURL }}
+              source={{
+                uri: user?.providerData[0]?.photoURL,
+              }}
             />
           </Center>
           <Center>
@@ -30,20 +37,32 @@ const Settings = ({ signOut, isValidating, user }) => {
               </Text>
             ) : (
               <Text fontSize="lg" fontWeight="bold">
-                {user?.displayName}
+                {user?.providerData[0]?.displayName}
               </Text>
             )}
-            <Text color="gray.500">{user?.email}</Text>
+            <Text color="gray.500">
+              {user?.providerData[0]?.email}
+            </Text>
           </Center>
         </VStack>
       </Center>
-      <Button
-        colorScheme="danger"
-        isDisabled={isValidating}
-        onPress={signOut}
-      >
-        Sign out
-      </Button>
+      <VStack space={4}>
+        {user?.isAnonymous && (
+          <Button
+            isDisabled={isValidating}
+            onPress={linkToGoogleAccount}
+          >
+            Link to Google Account
+          </Button>
+        )}
+        <Button
+          colorScheme="danger"
+          isDisabled={isValidating}
+          onPress={signOut}
+        >
+          Sign out
+        </Button>
+      </VStack>
     </VStack>
   )
 }

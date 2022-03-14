@@ -91,3 +91,30 @@ export const useSignInAnonymously = () => {
 
   return { signInAnonymously, data, error, isValidating }
 }
+
+export const useLinkToGoogleAccount = () => {
+  const [data, setData] = useState()
+  const [error, setError] = useState()
+  const [isValidating, setIsValidating] = useState()
+
+  const linkToGoogleAccount = async () => {
+    setIsValidating(true)
+
+    try {
+      const { idToken } = await GoogleSignin.signIn()
+      const googleCredential =
+        auth.GoogleAuthProvider.credential(idToken)
+      const user =
+        await auth().currentUser.linkWithCredential(
+          googleCredential
+        )
+      setData(user)
+    } catch (error) {
+      setError(error)
+    }
+
+    setIsValidating(false)
+  }
+
+  return { linkToGoogleAccount, data, error, isValidating }
+}
