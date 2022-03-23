@@ -9,7 +9,7 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import { Keyboard } from 'react-native'
+import { Keyboard, Share } from 'react-native'
 
 import { useTranscript } from '../actions/firestore.action'
 import { AuthContext } from '../contexts/auth.context'
@@ -70,6 +70,10 @@ const ViewTranscript = () => {
     mutateTranscript,
   ])
 
+  const onExport = useCallback(() => {
+    Share.share({ message: transcriptData.body })
+  }, [transcriptData])
+
   return (
     <ViewTranscriptScreen
       goBack={goBack}
@@ -79,6 +83,7 @@ const ViewTranscript = () => {
       transcript={transcriptData}
       onEditBody={onEditBody}
       onEditTitle={onEditTitle}
+      onExport={onExport}
       onRefresh={mutateTranscript}
       onSave={onSave}
     />

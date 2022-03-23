@@ -21,6 +21,7 @@ const ViewTranscript = ({
   onEditTitle,
   onEditBody,
   onSave,
+  onExport,
   isSaving,
   isTranscriptValidating,
 }) => {
@@ -43,12 +44,49 @@ const ViewTranscript = ({
             <Text>Transcripts</Text>
           </HStack>
         </Link>
-        {isLoading && <Spinner />}
-        {hasSaveButton && (
-          <Button p={0} variant="unstyled" onPress={onSave}>
-            Save
+        <HStack space={4}>
+          {isLoading && (
+            <Button
+              isDisabled
+              leftIcon={<Spinner />}
+              p={0}
+              variant="unstyled"
+              onPress={onSave}
+            >
+              Saving
+            </Button>
+          )}
+          {hasSaveButton && (
+            <Button
+              leftIcon={
+                <Icon
+                  as={AntDesign}
+                  name="save"
+                  size="xs"
+                />
+              }
+              p={0}
+              variant="unstyled"
+              onPress={onSave}
+            >
+              Save
+            </Button>
+          )}
+          <Button
+            leftIcon={
+              <Icon
+                as={AntDesign}
+                name="export"
+                size="xs"
+              />
+            }
+            p={0}
+            variant="unstyled"
+            onPress={onExport}
+          >
+            Export
           </Button>
-        )}
+        </HStack>
       </HStack>
       <Center>
         <Text
