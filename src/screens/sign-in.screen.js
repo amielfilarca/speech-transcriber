@@ -8,6 +8,8 @@ import {
 } from 'native-base'
 import React from 'react'
 
+import AppLogo from '../components/AppLogo'
+
 const SignIn = ({
   signInWithGoogle,
   signInAnonymously,
@@ -16,10 +18,13 @@ const SignIn = ({
   return (
     <VStack bg="white" flex={1} p={5}>
       <Center flex={1}>
-        <Heading>Speech Transcriber</Heading>
-        <Text color="gray.500" fontSize="xs">
-          Powered by Google Speech Recognition
-        </Text>
+        <AppLogo />
+        <VStack mt={4}>
+          <Heading>Speech Transcriber</Heading>
+          <Text color="gray.500" fontSize="xs">
+            Powered by Google Speech Recognition
+          </Text>
+        </VStack>
       </Center>
       <VStack
         alignItems="center"
