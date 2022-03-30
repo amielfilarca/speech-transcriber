@@ -14,34 +14,30 @@ import SettingsScreen from '../screens/settings.screen'
 
 const Settings = () => {
   const { user, setUser } = useContext(AuthContext)
-  const {
-    signOut,
-    isValidating: isSignOutValidating,
-    error: errorSignOut,
-  } = useSignOut()
+  const { signOut, ...signOutResponse } = useSignOut()
   const {
     linkToGoogleAccount,
-    data,
-    isValidating: isLinkToGoogleAccountValidating,
-    error: errorLinkToGoogleAccount,
+    ...linkToGoogleAccountResponse
   } = useLinkToGoogleAccount()
 
   const isValidating = useMemo(
     () =>
-      isSignOutValidating ||
-      isLinkToGoogleAccountValidating,
-    [isSignOutValidating, isLinkToGoogleAccountValidating]
+      signOutResponse.isValidating ||
+      linkToGoogleAccountResponse.isValidating,
+    [signOutResponse, linkToGoogleAccountResponse]
   )
 
   const error = useMemo(
-    () => errorSignOut || errorLinkToGoogleAccount,
-    [errorSignOut, errorLinkToGoogleAccount]
+    () =>
+      signOutResponse.error ||
+      linkToGoogleAccountResponse.error,
+    [signOutResponse, linkToGoogleAccountResponse]
   )
 
   useEffect(() => {
-    if (!data) return
-    setUser(data.user)
-  }, [setUser, data])
+    if (!linkToGoogleAccountResponse.data) return
+    setUser(linkToGoogleAccountResponse.data.user)
+  }, [setUser, linkToGoogleAccountResponse])
 
   const toast = useToast()
 
