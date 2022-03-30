@@ -20,16 +20,6 @@ const Transcripts = () => {
     transcriptsResponse,
   } = useContext(TranscriptContext)
 
-  const refreshing = useMemo(
-    () => transcriptsResponse.isValidating,
-    [transcriptsResponse]
-  )
-
-  const onRefresh = useCallback(
-    () => transcriptsResponse.mutate(),
-    [transcriptsResponse]
-  )
-
   const navigation = useNavigation()
 
   const viewTranscript = (transcript) => {
@@ -64,11 +54,11 @@ const Transcripts = () => {
   return (
     <>
       <TranscriptsScreen
-        refreshing={refreshing}
+        refreshing={transcriptsResponse.isValidating}
         transcripts={transcripts}
         viewTranscript={viewTranscript}
         onDelete={onDelete}
-        onRefresh={onRefresh}
+        onRefresh={transcriptsResponse.mutate}
       />
       <AlertDialog
         body="This will delete the transcript. This action
