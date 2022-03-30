@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/core'
+import { useToast } from 'native-base'
 import React, {
   useCallback,
   useContext,
@@ -46,11 +47,19 @@ const Transcripts = () => {
     setTranscript()
   }
 
+  const toast = useToast()
+
   const onConfirm = useCallback(() => {
-    const payload = transcript
+    deleteTranscriptAsync(transcript)
+    toast.show({
+      title: 'Success',
+      description: 'Deleted transcript',
+      status: 'success',
+      placement: 'top',
+      mx: 5,
+    })
     setTranscript()
-    deleteTranscriptAsync(payload)
-  }, [deleteTranscriptAsync, transcript])
+  }, [deleteTranscriptAsync, toast, transcript])
 
   return (
     <>
