@@ -18,8 +18,8 @@ const Transcripts = ({
   transcripts,
   viewTranscript,
   onDelete,
-  isTranscriptsValidating,
-  mutateTranscripts,
+  refreshing,
+  onRefresh,
 }) => {
   return (
     <VStack bg="white" flex={1} space={4}>
@@ -37,8 +37,8 @@ const Transcripts = ({
           keyExtractor={(transcript) => transcript.id}
           refreshControl={
             <RefreshControl
-              refreshing={isTranscriptsValidating}
-              onRefresh={mutateTranscripts}
+              refreshing={refreshing}
+              onRefresh={onRefresh}
             />
           }
           renderHiddenItem={({ item: transcript }) => (

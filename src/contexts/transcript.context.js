@@ -25,22 +25,15 @@ export const TranscriptContext = createContext()
 const TranscriptContextProvider = ({ children }) => {
   const [transcripts, setTranscripts] = useState([])
   const { user } = useContext(AuthContext)
-  const {
-    data: transcriptsData,
-    isValidating: isTranscriptsValidating,
-    mutate: mutateTranscripts,
-  } = useTranscripts(user)
+  const transcriptsResponse = useTranscripts(user)
   const { createTranscript } = useCreateTranscript()
-  const {
-    updateTranscript,
-    isValidating: isUpdateTranscriptValidating,
-  } = useUpdateTranscript()
+  const { updateTranscript } = useUpdateTranscript()
   const { deleteTranscript } = useDeleteTranscript()
 
   useEffect(() => {
-    if (!transcriptsData) return
+    if (!transcriptsResponse.data) return
     const sortedData = sortBy(
-      transcriptsData,
+      transcriptsResponse.data,
       (transcript) => [
         -new Date(transcript.updatedAt),
         -new Date(transcript.createdAt),
@@ -48,7 +41,7 @@ const TranscriptContextProvider = ({ children }) => {
       ]
     )
     setTranscripts(sortedData)
-  }, [transcriptsData])
+  }, [transcriptsResponse])
 
   const addTranscriptAsync = useCallback(
     async (transcript) => {
@@ -62,9 +55,9 @@ const TranscriptContextProvider = ({ children }) => {
         updatedAt: now,
       }
       await createTranscript(user, payload)
-      await mutateTranscripts()
+      await transcriptsResponse.mutate()
     },
-    [user, createTranscript, mutateTranscripts]
+    [user, createTranscript, transcriptsResponse]
   )
 
   const updateTranscriptAsync = useCallback(
@@ -74,29 +67,27 @@ const TranscriptContextProvider = ({ children }) => {
         updatedAt: getCurrentDate(),
       }
       await updateTranscript(user, payload)
-      await mutateTranscripts()
+      await transcriptsResponse.mutate()
     },
-    [user, updateTranscript, mutateTranscripts]
+    [user, updateTranscript, transcriptsResponse]
   )
 
   const deleteTranscriptAsync = useCallback(
     async (transcript) => {
       await deleteTranscript(user, transcript)
-      await mutateTranscripts()
+      await transcriptsResponse.mutate()
     },
-    [user, deleteTranscript, mutateTranscripts]
+    [user, deleteTranscript, transcriptsResponse]
   )
 
   return (
     <TranscriptContext.Provider
       value={{
+        transcriptsResponse,
         transcripts,
         addTranscriptAsync,
         updateTranscriptAsync,
         deleteTranscriptAsync,
-        isTranscriptsValidating,
-        isUpdateTranscriptValidating,
-        mutateTranscripts,
       }}
     >
       {children}
