@@ -23,11 +23,10 @@ const ViewTranscript = () => {
   const { user } = useContext(AuthContext)
   const route = useRoute()
   const transcript = route.params.transcript
-  const {
-    data: transcriptData,
-    isValidating: isTranscriptValidating,
-    mutate: mutateTranscript,
-  } = useTranscript(user, transcript)
+  const { data, isValidating, mutate } = useTranscript(
+    user,
+    transcript
+  )
   const { updateTranscriptAsync } = useContext(
     TranscriptContext
   )
@@ -36,55 +35,49 @@ const ViewTranscript = () => {
   const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
-    if (!transcriptData) return
-    setTitle(transcriptData.title)
-    setBody(transcriptData.body)
-  }, [transcriptData])
+    if (!data) return
+    setTitle(data.title)
+    setBody(data.body)
+  }, [data])
 
   const onEditTitle = (title) => setTitle(title)
   const onEditBody = (body) => setBody(body)
 
   const isEdited = useMemo(() => {
-    if (!transcriptData) return false
-    if (title !== transcriptData.title) return true
-    if (body !== transcriptData.body) return true
+    if (!data) return false
+    if (title !== data.title) return true
+    if (body !== data.body) return true
     return false
-  }, [transcriptData, title, body])
+  }, [data, title, body])
 
   const onSave = useCallback(async () => {
     setIsSaving(true)
     Keyboard.dismiss()
     const payload = parsePayload({
-      ...transcriptData,
+      ...data,
       title,
       body,
     })
     await updateTranscriptAsync(payload)
-    await mutateTranscript()
+    await mutate()
     setIsSaving(false)
-  }, [
-    updateTranscriptAsync,
-    transcriptData,
-    title,
-    body,
-    mutateTranscript,
-  ])
+  }, [updateTranscriptAsync, data, title, body, mutate])
 
   const onExport = useCallback(() => {
-    Share.share({ message: transcriptData.body })
-  }, [transcriptData])
+    Share.share({ message: data.body })
+  }, [data])
 
   return (
     <ViewTranscriptScreen
       goBack={goBack}
       isEdited={isEdited}
       isSaving={isSaving}
-      isTranscriptValidating={isTranscriptValidating}
-      transcript={transcriptData}
+      isValidating={isValidating}
+      transcript={data}
       onEditBody={onEditBody}
       onEditTitle={onEditTitle}
       onExport={onExport}
-      onRefresh={mutateTranscript}
+      onRefresh={mutate}
       onSave={onSave}
     />
   )
