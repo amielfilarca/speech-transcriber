@@ -13,6 +13,7 @@ import {
   useSignInAnonymously,
   useSignInWithGoogle,
 } from '../actions/auth.action'
+import { COMMON_PROPS } from '../constants'
 import { AuthContext } from '../contexts/auth.context'
 import SignInScreen from '../screens/sign-in.screen'
 
@@ -50,12 +51,11 @@ const Authentication = () => {
 
   const toastError = useMemo(
     () => ({
+      ...COMMON_PROPS.TOAST,
       id: error?.code,
       title: 'Error',
       status: 'error',
       description: error?.message,
-      placement: 'top',
-      mx: 5,
     }),
     [error]
   )

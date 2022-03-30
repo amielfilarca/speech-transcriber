@@ -9,6 +9,7 @@ import {
   useLinkToGoogleAccount,
   useSignOut,
 } from '../actions/auth.action'
+import { COMMON_PROPS } from '../constants'
 import { AuthContext } from '../contexts/auth.context'
 import SettingsScreen from '../screens/settings.screen'
 
@@ -43,12 +44,11 @@ const Settings = () => {
 
   const toastError = useMemo(
     () => ({
+      ...COMMON_PROPS.TOAST,
       id: error?.code,
       title: 'Error',
       status: 'error',
       description: error?.message,
-      placement: 'top',
-      mx: 5,
     }),
     [error]
   )

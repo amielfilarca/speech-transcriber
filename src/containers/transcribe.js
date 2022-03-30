@@ -8,6 +8,7 @@ import React, {
   useState,
 } from 'react'
 
+import { COMMON_PROPS } from '../constants'
 import { AuthContext } from '../contexts/auth.context'
 import { TranscriptContext } from '../contexts/transcript.context'
 import TranscribeScreen from '../screens/transcribe.screen'
@@ -28,12 +29,11 @@ const Transcribe = () => {
 
   const toastError = useMemo(
     () => ({
+      ...COMMON_PROPS.TOAST,
       id: error,
       title: 'Error',
       status: 'error',
       description: error,
-      placement: 'top',
-      mx: 5,
     }),
     [error]
   )
@@ -128,11 +128,10 @@ const Transcribe = () => {
   const saveTranscript = () => {
     addTranscriptAsync(results[0])
     toast.show({
+      ...COMMON_PROPS.TOAST,
       title: 'Success',
       description: 'Saved transcript',
       status: 'success',
-      placement: 'top',
-      mx: 5,
     })
     resetState()
   }

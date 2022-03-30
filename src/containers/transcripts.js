@@ -9,6 +9,7 @@ import React, {
 } from 'react'
 
 import AlertDialog from '../components/AlertDialog'
+import { COMMON_PROPS } from '../constants'
 import { TranscriptContext } from '../contexts/transcript.context'
 import TranscriptsScreen from '../screens/transcripts.screen'
 
@@ -52,11 +53,10 @@ const Transcripts = () => {
   const onConfirm = useCallback(() => {
     deleteTranscriptAsync(transcript)
     toast.show({
+      ...COMMON_PROPS.TOAST,
       title: 'Success',
       description: 'Deleted transcript',
       status: 'success',
-      placement: 'top',
-      mx: 5,
     })
     setTranscript()
   }, [deleteTranscriptAsync, toast, transcript])
