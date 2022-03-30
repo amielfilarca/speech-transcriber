@@ -19,32 +19,27 @@ import SignInScreen from '../screens/sign-in.screen'
 
 const Authentication = () => {
   const navigation = useNavigation()
-  const {
-    signInWithGoogle,
-    isValidating: isSignInWithGoogleValidating,
-    error: errorSignInWithGoogle,
-  } = useSignInWithGoogle()
+  const { signInWithGoogle, ...signInWithGoogleResponse } =
+    useSignInWithGoogle()
   const {
     signInAnonymously,
-    isValidating: isSignInAnonymouslyValidating,
-    error: errorSignInAnonymously,
+    ...signInAnonymouslyResponse
   } = useSignInAnonymously()
   const { user, setUser } = useContext(AuthContext)
   const [initializing, setInitializing] = useState(true)
 
   const isValidating = useMemo(
     () =>
-      isSignInWithGoogleValidating ||
-      isSignInAnonymouslyValidating,
-    [
-      isSignInWithGoogleValidating,
-      isSignInAnonymouslyValidating,
-    ]
+      signInWithGoogleResponse.isValidating ||
+      signInAnonymouslyResponse.isValidating,
+    [signInWithGoogleResponse, signInAnonymouslyResponse]
   )
 
   const error = useMemo(
-    () => errorSignInWithGoogle || errorSignInAnonymously,
-    [errorSignInWithGoogle, errorSignInAnonymously]
+    () =>
+      signInWithGoogleResponse.error ||
+      signInAnonymouslyResponse.error,
+    [signInWithGoogleResponse, signInAnonymouslyResponse]
   )
 
   const toast = useToast()
