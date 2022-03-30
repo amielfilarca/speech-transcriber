@@ -36,11 +36,7 @@ const Transcribe = ({
       </ScrollView>
       <Progress value={volume} />
       {!results && (
-        <Button
-          isDisabled={isLoading}
-          shadow={1}
-          onPress={onPress}
-        >
+        <Button isDisabled={isLoading} onPress={onPress}>
           {buttonText}
         </Button>
       )}
@@ -48,14 +44,12 @@ const Transcribe = ({
         <VStack space={4}>
           <Button
             colorScheme="success"
-            shadow={1}
             onPress={saveTranscript}
           >
             Save
           </Button>
           <Button
             colorScheme="danger"
-            shadow={1}
             onPress={discardTranscript}
           >
             Discard
