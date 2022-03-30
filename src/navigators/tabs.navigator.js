@@ -44,13 +44,13 @@ const TabsNavigator = () => {
       />
       <Tabs.Screen
         component={Settings}
-        name="Settings"
+        name="Account"
         options={{
           tabBarIcon: ({ color, size }) => (
             <Icon
               as={AntDesign}
               color={color}
-              name="setting"
+              name="user"
               size={size}
             />
           ),
