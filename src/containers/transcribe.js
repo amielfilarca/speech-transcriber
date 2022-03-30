@@ -127,6 +127,13 @@ const Transcribe = () => {
 
   const saveTranscript = () => {
     addTranscriptAsync(results[0])
+    toast.show({
+      title: 'Success',
+      description: 'Saved transcript',
+      status: 'success',
+      placement: 'top',
+      mx: 5,
+    })
     resetState()
   }
 
