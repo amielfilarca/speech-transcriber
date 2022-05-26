@@ -22,8 +22,13 @@ const Transcribe = ({
   return (
     <VStack bg="white" flex={1} p={5} space={4}>
       <Heading>Transcribe</Heading>
-      <ScrollView _contentContainerStyle={{ flex: 1 }}>
-        <Center flex={1}>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: 'center',
+        }}
+      >
+        <Center>
           {transcript ? (
             <Text fontSize="xl">{transcript}</Text>
           ) : (
