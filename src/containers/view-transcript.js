@@ -50,6 +50,25 @@ const ViewTranscript = () => {
     return false
   }, [data, title, body])
 
+  const history = useMemo(
+    () => data?.history || [],
+    [data?.history]
+  )
+
+  const currentTranscript = useMemo(
+    () =>
+      data
+        ? {
+            id: data.id,
+            title: data.title,
+            body: data.body,
+            createdAt: data.createdAt,
+            updatedAt: data.updatedAt,
+          }
+        : null,
+    [data]
+  )
+
   const onSave = useCallback(async () => {
     setIsSaving(true)
     Keyboard.dismiss()
@@ -57,11 +76,20 @@ const ViewTranscript = () => {
       ...data,
       title,
       body,
+      history: [currentTranscript, ...history],
     })
     await updateTranscriptAsync(payload)
     await mutate()
     setIsSaving(false)
-  }, [updateTranscriptAsync, data, title, body, mutate])
+  }, [
+    data,
+    title,
+    body,
+    currentTranscript,
+    history,
+    updateTranscriptAsync,
+    mutate,
+  ])
 
   const onExport = useCallback(() => {
     Share.share({ message: data.body })

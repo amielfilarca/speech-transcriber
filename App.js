@@ -2,6 +2,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { NativeBaseProvider } from 'native-base'
 import React from 'react'
 import { LogBox } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import AppNavigator from './src/navigators/app.navigator'
 import theme from './src/theme'
@@ -13,11 +14,13 @@ const App = () => {
   ])
 
   return (
-    <NativeBaseProvider theme={theme}>
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
-    </NativeBaseProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NativeBaseProvider theme={theme}>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </NativeBaseProvider>
+    </GestureHandlerRootView>
   )
 }
 

@@ -1,3 +1,6 @@
+import BottomSheet, {
+  BottomSheetScrollView,
+} from '@gorhom/bottom-sheet'
 import { format } from 'date-fns'
 import {
   Button,
@@ -12,6 +15,7 @@ import {
   VStack,
 } from 'native-base'
 import React, { useMemo } from 'react'
+import { StyleSheet } from 'react-native'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 
 const ViewTranscript = ({
@@ -33,6 +37,18 @@ const ViewTranscript = ({
   const hasSaveButton = useMemo(
     () => !isLoading && isEdited,
     [isLoading, isEdited]
+  )
+
+  const sheetRef = React.useRef(null)
+
+  const data = useMemo(
+    () => transcript?.history || [],
+    [transcript?.history]
+  )
+
+  const snapPoints = useMemo(
+    () => ['10%', '50%', '90%'],
+    []
   )
 
   return (
@@ -122,8 +138,69 @@ const ViewTranscript = ({
           onChangeText={onEditBody}
         />
       </VStack>
+      <BottomSheet
+        ref={sheetRef}
+        index={data.length ? 0 : -1}
+        snapPoints={snapPoints}
+        style={styles.bottomSheet}
+      >
+        <BottomSheetScrollView
+          style={{
+            paddingVertical: 10,
+            paddingHorizontal: 20,
+          }}
+        >
+          <Text color="gray.500" fontSize="xs">{`Last ${
+            data.length
+          } edit${data.length > 1 ? 's' : ''}`}</Text>
+          <VStack mt={4} space={4}>
+            {data.map(
+              ({ title, body, updatedAt }, index) => (
+                <VStack
+                  key={index}
+                  bgColor="gray.100"
+                  p={4}
+                  rounded="lg"
+                >
+                  <Center>
+                    <Text
+                      color="gray.500"
+                      fontSize="xs"
+                      lineHeight="xs"
+                    >
+                      {`${format(
+                        new Date(updatedAt),
+                        'MMMM d, yyyy'
+                      )} at ${format(
+                        new Date(updatedAt),
+                        'p'
+                      )}`}
+                    </Text>
+                  </Center>
+                  <Text fontWeight="bold">{title}</Text>
+                  <Text>{body}</Text>
+                </VStack>
+              )
+            )}
+          </VStack>
+        </BottomSheetScrollView>
+      </BottomSheet>
     </VStack>
   )
 }
+
+const styles = StyleSheet.create({
+  bottomSheet: {
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+})
 
 export default ViewTranscript
